@@ -1,0 +1,27 @@
+#!/bin/zsh
+set -eu
+
+install_root="$(cd "$(dirname "$0")/.." && pwd -P)"
+export CALENDAR_BRIDGE_PATH="$install_root/libexec/calendar-bridge"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/opt/local/bin:${PATH:-/usr/bin:/bin}"
+
+node_candidates=(
+  "${APPLE_CALENDAR_NODE:-}"
+  /opt/homebrew/bin/node
+  /usr/local/bin/node
+  /opt/local/bin/node
+  "$HOME/.volta/bin/node"
+  "$HOME"/.nvm/versions/node/*/bin/node(N)
+  "$HOME"/Library/Application\ Support/fnm/node-versions/*/installation/bin/node(N)
+)
+
+for node_binary in "${node_candidates[@]}"; do
+  [[ -n "$node_binary" && -x "$node_binary" ]] || continue
+  node_major="$($node_binary -p 'Number(process.versions.node.split(".")[0])' 2>/dev/null || true)"
+  if [[ "$node_major" == <-> && "$node_major" -ge 18 ]]; then
+    exec "$node_binary" "$install_root/dist/index.js"
+  fi
+done
+
+print -u2 "Apple Calendar MCP requires Node.js 18 or newer. Install Node.js, then restart ChatGPT."
+exit 127

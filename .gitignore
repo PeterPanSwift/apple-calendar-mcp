@@ -8,3 +8,6 @@ libexec/
 # Packaged Cowork plugin — a build artifact containing a compiled binary.
 # Distribute it as a GitHub Release asset instead of committing it.
 *.plugin
+
+# Locally built macOS installer packages.
+release/*.pkg

@@ -16,6 +16,8 @@
     "build:swift": "./scripts/build-swift.sh",
     "build:ts": "tsc -p tsconfig.json",
     "build": "npm run build:swift && npm run build:ts",
+    "build:installer": "./scripts/build-installer.sh",
+    "test:installer": "./scripts/test-installer.sh",
     "start": "node dist/index.js",
     "smoke": "node scripts/smoke-test.mjs",
     "prepare": "npm run build"
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
     "typescript": "^5.6.0"
   }
 }
