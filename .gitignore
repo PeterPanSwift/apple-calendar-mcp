@@ -1,0 +1,10 @@
+node_modules/
+dist/
+bin/
+libexec/
+*.dSYM/
+.DS_Store
+
+# Packaged Cowork plugin — a build artifact containing a compiled binary.
+# Distribute it as a GitHub Release asset instead of committing it.
+*.plugin

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "apple-calendar": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/Users/shih-yingpan/Documents/VibeCoding/Apple Calendar MCP Server/dist/index.js"
+      ]
+    }
+  }
+}

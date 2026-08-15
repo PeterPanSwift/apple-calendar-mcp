@@ -1,0 +1,37 @@
+{
+  "name": "apple-calendar-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Apple Calendar on macOS, backed by EventKit",
+  "type": "module",
+  "bin": {
+    "apple-calendar-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "src/swift",
+    "README.md"
+  ],
+  "scripts": {
+    "build:swift": "./scripts/build-swift.sh",
+    "build:ts": "tsc -p tsconfig.json",
+    "build": "npm run build:swift && npm run build:ts",
+    "start": "node dist/index.js",
+    "smoke": "node scripts/smoke-test.mjs",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "os": [
+    "darwin"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}

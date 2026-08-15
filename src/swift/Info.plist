@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.local.apple-calendar-mcp.bridge</string>
+	<key>CFBundleName</key>
+	<string>calendar-bridge</string>
+	<key>CFBundleExecutable</key>
+	<string>calendar-bridge</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Reads and edits your Calendar events so an AI assistant can answer questions about your schedule.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Reads and edits your Calendar events so an AI assistant can answer questions about your schedule.</string>
+</dict>
+</plist>

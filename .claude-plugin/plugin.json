@@ -1,0 +1,8 @@
+{
+  "name": "apple-calendar",
+  "description": "Read and edit the local macOS Calendar via EventKit. Lists calendars, queries events with recurring occurrences expanded, searches, creates, updates and deletes events, and finds free time slots.",
+  "version": "0.1.0",
+  "author": {
+    "name": "shih-yingpan"
+  }
+}
