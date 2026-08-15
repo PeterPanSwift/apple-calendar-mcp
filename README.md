@@ -43,6 +43,14 @@ npm install && npm run build
 
 This compiles the Swift bridge to `bin/calendar-bridge` and the TypeScript to `dist/`.
 
+To build a shareable macOS installer that also registers the ChatGPT/Codex STDIO server:
+
+```bash
+npm run build:installer
+```
+
+See [INSTALL-CHATGPT.md](INSTALL-CHATGPT.md) for installation and signing details.
+
 ### Granting calendar access
 
 macOS will not hand calendar access to a process without a usage description, so `Info.plist` is linked directly into the binary's `__TEXT,__info_plist` section and the result is ad-hoc signed.
@@ -82,7 +90,25 @@ Or just open the project directory — the checked-in `.mcp.json` is picked up a
 
 **Claude Cowork** — install the packaged plugin, and make sure the task runs **On your computer**. Local MCP servers do not run in cloud sessions, and EventKit is a macOS API that cannot execute inside Cowork's Linux sandbox. See [INSTALL.md](INSTALL.md) for the full walkthrough (written in Chinese).
 
-**ChatGPT** — the desktop app can launch local STDIO servers too. Add a server with these values:
+**ChatGPT — recommended package install**
+
+The macOS package installs the self-contained server files and registers the STDIO MCP in ChatGPT/Codex automatically. The user does not need to fill in the Add MCP Server form.
+
+Requirements: macOS 13 or later, the ChatGPT desktop app, and Node.js 18 or later. The package contains a universal Apple silicon + Intel EventKit bridge.
+
+1. Download [`AppleCalendarMCP-0.1.0.pkg`](https://github.com/PeterPanSwift/apple-calendar-mcp/releases/download/v0.1.0/AppleCalendarMCP-0.1.0.pkg).
+2. Open the package and complete the installer. An administrator password is required because the server is installed under `/Library/Application Support/AppleCalendarMCP`.
+3. Quit ChatGPT completely with **⌘Q**, then reopen it.
+4. Type `/mcp` or `/app` and confirm that `apple-calendar` is **Enabled**.
+5. Ask: “Use apple-calendar to list all my calendars.” Allow ChatGPT to access Calendars when macOS asks.
+
+The installer registers `[mcp_servers.apple-calendar]` in `~/.codex/config.toml`, preserving the rest of the file and creating a timestamped backup. If Node.js is installed later, restart ChatGPT afterward; no reinstall is needed.
+
+The current package is not signed with a Developer ID Installer certificate, so macOS may show an unidentified-developer warning. A public production release should be signed and notarized.
+
+**ChatGPT — manual developer setup**
+
+The desktop app can also launch the project checkout directly. Add a server with these values:
 
 | Field | Value |
 | --- | --- |
@@ -214,6 +240,14 @@ npm install && npm run build
 
 會編出 Swift 橋接程式 `bin/calendar-bridge` 與 TypeScript 的 `dist/`。
 
+若要製作可分享、會自動註冊 ChatGPT/Codex STDIO MCP 的 macOS 安裝器：
+
+```bash
+npm run build:installer
+```
+
+完整安裝與簽署說明見 [INSTALL-CHATGPT.md](INSTALL-CHATGPT.md)。
+
 ### 開啟行事曆權限
 
 macOS 不會把行事曆權限給沒有用途說明的程式，所以 `Info.plist` 用 linker 直接嵌進二進位檔的 `__TEXT,__info_plist` 區段，並做 ad-hoc 簽章。
@@ -253,7 +287,25 @@ claude mcp add apple-calendar -- node "/絕對路徑/dist/index.js"
 
 **Claude Cowork** — 安裝打包好的外掛，並且開新工作時一定要選 **On your computer**。本機 MCP server 不會在雲端 session 裡執行，而 EventKit 是 macOS API，在 Cowork 的 Linux 沙箱裡根本跑不起來。完整步驟見 [INSTALL.md](INSTALL.md)。
 
-**ChatGPT** — 桌面版也能啟動本機 STDIO server。新增一個 server，填入：
+**ChatGPT——建議使用 macOS 安裝器**
+
+macOS 安裝器會安裝自帶版 server，並自動把 STDIO MCP 註冊到 ChatGPT/Codex；使用者不必自行填寫 Add MCP Server 表單。
+
+系統需求：macOS 13 以上、ChatGPT 桌面版，以及 Node.js 18 以上。安裝器內含同時支援 Apple Silicon 與 Intel Mac 的 universal EventKit 橋接程式。
+
+1. 下載 [`AppleCalendarMCP-0.1.0.pkg`](https://github.com/PeterPanSwift/apple-calendar-mcp/releases/download/v0.1.0/AppleCalendarMCP-0.1.0.pkg)。
+2. 打開安裝器並完成安裝。程式會安裝到 `/Library/Application Support/AppleCalendarMCP`，所以需要輸入管理員密碼。
+3. 用 **⌘Q** 完全結束 ChatGPT，然後重新開啟。
+4. 輸入 `/mcp` 或 `/app`，確認 `apple-calendar` 顯示為 **Enabled**。
+5. 輸入：「請使用 apple-calendar 列出我所有的行事曆。」macOS 詢問權限時，允許 ChatGPT 存取行事曆。
+
+安裝器會在 `~/.codex/config.toml` 註冊 `[mcp_servers.apple-calendar]`，保留其他設定並建立帶時間戳的備份。若之後才安裝 Node.js，只要重開 ChatGPT，不必重新安裝 `.pkg`。
+
+目前安裝器尚未使用 Developer ID Installer 憑證簽署，因此 macOS 可能顯示無法驗證開發者。正式公開發布前應完成簽署與 notarization。
+
+**ChatGPT——開發者手動設定**
+
+桌面版也能直接啟動專案資料夾中的 STDIO server。新增一個 server，填入：
 
 | 欄位 | 值 |
 | --- | --- |
