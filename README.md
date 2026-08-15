@@ -65,7 +65,7 @@ Permission follows the calling app, not this binary. Switch clients and you gran
 claude mcp add apple-calendar -- node "/absolute/path/to/dist/index.js"
 ```
 
-Or just open the project directory — the checked-in `.mcp.json` is picked up automatically.
+Or just open the project directory — the checked-in `.mcp.json` is picked up automatically. Its `args` path is absolute and machine-specific, so edit it to point at your own clone.
 
 **Claude Desktop** — in `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
@@ -221,7 +221,7 @@ echo '{"command":"calendars"}' | ./bin/calendar-bridge
 claude mcp add apple-calendar -- node "/絕對路徑/dist/index.js"
 ```
 
-或直接在專案目錄開 Claude Code，會自動載入專案裡的 `.mcp.json`。
+或直接在專案目錄開 Claude Code，會自動載入專案裡的 `.mcp.json`。裡面的 `args` 是絕對路徑、綁定特定機器，clone 下來後要改成你自己的路徑。
 
 **Claude Desktop** — 編輯 `~/Library/Application Support/Claude/claude_desktop_config.json`：
 
