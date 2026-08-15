@@ -82,6 +82,21 @@ Or just open the project directory — the checked-in `.mcp.json` is picked up a
 
 **Claude Cowork** — install the packaged plugin, and make sure the task runs **On your computer**. Local MCP servers do not run in cloud sessions, and EventKit is a macOS API that cannot execute inside Cowork's Linux sandbox. See [INSTALL.md](INSTALL.md) for the full walkthrough (written in Chinese).
 
+**ChatGPT** — the desktop app can launch local STDIO servers too. Add a server with these values:
+
+| Field | Value |
+| --- | --- |
+| Name | `apple-calendar` |
+| Type | `STDIO` |
+| Command to launch | `/opt/homebrew/bin/node` |
+| Arguments | `/absolute/path/to/dist/index.js` |
+| Environment variables | none |
+| Working directory | leave blank |
+
+Give the **absolute** path to `node`, not a bare `node`. A GUI app is launched by the window server, not your shell, so it never sees the `PATH` from your `.zshrc` — a bare command name simply fails to spawn. `which node` prints the path to use; `/opt/homebrew/bin/node` is the usual Homebrew location on Apple silicon.
+
+Calendar access is granted to ChatGPT itself under this setup, since it is the app spawning the server.
+
 ### Tools
 
 | Tool | What it does |
@@ -237,6 +252,21 @@ claude mcp add apple-calendar -- node "/絕對路徑/dist/index.js"
 ```
 
 **Claude Cowork** — 安裝打包好的外掛，並且開新工作時一定要選 **On your computer**。本機 MCP server 不會在雲端 session 裡執行，而 EventKit 是 macOS API，在 Cowork 的 Linux 沙箱裡根本跑不起來。完整步驟見 [INSTALL.md](INSTALL.md)。
+
+**ChatGPT** — 桌面版也能啟動本機 STDIO server。新增一個 server，填入：
+
+| 欄位 | 值 |
+| --- | --- |
+| Name | `apple-calendar` |
+| Type | `STDIO` |
+| Command to launch | `/opt/homebrew/bin/node` |
+| Arguments | `/絕對路徑/dist/index.js` |
+| Environment variables | 不用填 |
+| Working directory | 留空 |
+
+`node` 要給**絕對路徑**，不能只寫 `node`。GUI app 是由 window server 啟動的，不經過你的 shell，所以讀不到 `.zshrc` 裡的 `PATH`——只寫指令名稱會直接啟動失敗。用 `which node` 查出路徑；Apple silicon 上 Homebrew 裝的通常就是 `/opt/homebrew/bin/node`。
+
+這種裝法下，行事曆權限是授權給 **ChatGPT** 本身，因為 server 是它啟動的。
 
 ### 工具
 
