@@ -18,6 +18,8 @@ Calendar.app's scripting interface returns only the *master* event for a recurri
 
 ### Architecture
 
+![Apple Calendar MCP Server architecture](docs/architecture-en.png)
+
 ```
 MCP client  ──stdio/JSON-RPC──▶  Node MCP server (src/*.ts)
                                         │  one JSON request per invocation
