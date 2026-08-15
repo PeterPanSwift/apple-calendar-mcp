@@ -215,6 +215,8 @@ Calendar.app 的 scripting 介面對重複性事件只回傳「母事件」與�
 
 ### 架構
 
+![Apple Calendar MCP Server 架構圖](docs/architecture-zh.png)
+
 ```
 MCP client  ──stdio/JSON-RPC──▶  Node MCP server (src/*.ts)
                                         │  一次呼叫一個 JSON 請求
